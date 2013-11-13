@@ -107,6 +107,26 @@ class User extends CActiveRecord
         return crypt($password, $this->generateSalt());
     }
 
+    protected function generateSalt($cost=10)
+    {
+        if(!is_numeric($cost)||$cost<4||$cost>31){
+            throw new CException('Cost parameter must be between 4 and 31.');
+        }
+        // Get some pseudo-random data from mt_rand().
+        $rand='';
+        for($i=0;$i<8;++$i)
+            $rand.=pack('S',mt_rand(0,0xffff));
+        // Add the microtime for a little more entropy.
+        $rand.=microtime();
+        // Mix the bits cryptographically.
+        $rand=sha1($rand,true);
+        // Form the prefix that specifies hash algorithm type and cost parameter.
+        $salt='$2a$'.sprintf('%02d',$cost).'$';
+        // Append the random salt string in the required base64 format.
+        $salt.=strtr(substr(base64_encode($rand),0,22),array('+'=>'.'));
+        return $salt;
+    }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
