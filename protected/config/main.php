@@ -18,6 +18,10 @@ return array(
 		'application.components.*',
 	),
 
+    'aliases' => array(
+        'RestfullYii' =>realpath(__DIR__ . '/../extensions/starship/starship/RestfullYii')
+    ),
+
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		'gii'=>array(
@@ -47,8 +51,9 @@ return array(
 		*/
         'urlManager'=>array(
             'urlFormat'=>'path',
+            'showScriptName'=>false,
             'rules'=> require(
-                    dirname(__FILE__) . '/../extensions/RESTFullYii/starship/RestfullYii/config/routes.php'
+                    dirname(__FILE__) . '/../extensions/starship/starship/RestfullYii/config/routes.php'
                 ),
         ),
         /*
@@ -86,9 +91,7 @@ return array(
 		),
 	),
 
-    'aliases' => array(
-        'RestfullYii' =>realpath(__DIR__ . '/..extensions/RESTFullYii/starship/RestfullYii')
-    ),
+
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']

@@ -15,9 +15,20 @@ class PostController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+            array(
+                'ext.starship.starship.RestfullYii.filters.ERestFilter +
+                REST.GET, REST.PUT, REST.POST, REST.DELETE'
+            ),
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
+
+    public function actions()
+    {
+        return array(
+            'REST.'=>'ext.starship.starship.RestfullYii.actions.ERestActionProvider',
+        );
+    }
 
 	/**
 	 * Specifies the access control rules.
@@ -39,6 +50,9 @@ class PostController extends Controller
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
+            array('allow', 'actions'=>array('REST.GET', 'REST.PUT', 'REST.POST', 'REST.DELETE'),
+                'users'=>array('*'),
+            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
