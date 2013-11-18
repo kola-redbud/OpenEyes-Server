@@ -1,0 +1,3 @@
+[submodule "protected/extensions/starship"]
+	path = protected/extensions/starship
+	url = https://github.com/evan108108/RESTFullYii.git
