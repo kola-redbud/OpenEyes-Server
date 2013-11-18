@@ -45,6 +45,12 @@ return array(
 			),
 		),
 		*/
+        'urlManager'=>array(
+            'urlFormat'=>'path',
+            'rules'=> require(
+                    dirname(__FILE__) . '/../extensions/RESTFullYii/starship/RestfullYii/config/routes.php'
+                ),
+        ),
         /*
         'db'=>array(
             'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
@@ -79,6 +85,10 @@ return array(
 			),
 		),
 	),
+
+    'aliases' => array(
+        'RestfullYii' =>realpath(__DIR__ . '/..extensions/RESTFullYii/starship/RestfullYii')
+    ),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
